@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-primary">
+    <p class="navbar-brand text-light d-none d-md-inline">Welcome {{ name }}</p>
+    <img class="profile-img" [src]="photo" alt="Profile Pic">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <button class="btn btn-link text-light" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mb-3 mt-2">
+    <div class="card shadow-nohover mb-3">
+        <h5 class="card-header bg-primary text-light">Create Section</h5>
+        <div class="card-body">
+            <form #sectionForm="ngForm" (ngSubmit)="createSection(sectionForm)">
+                <div class="input-wraper mb-2">
+                    <input class="form-control" name="sectionName" #sectionName="ngModel" [(ngModel)]="sectionService.section.sectionName" placeholder="Section Name..." minlength="3" required>
+                    <small class="text-info font-weight-bold">IMPORTANT: Enter specific section name. Don't add the word "Section" or the year level. Section name must be on lowercases.</small>
+                    <div class="alert alert-danger" *ngIf="sectionForm.invalid && (sectionForm.dirty || sectionForm.touched)">
+                        <div *ngIf="sectionName.errors.required">
+                            Section name is required
+                        </div>
+                        <div *ngIf="sectionName.errors.minlength">
+                            Section name must be more than or equal to 3 characters
+                        </div>
+                    </div>
+                    <div class="alert alert-success" *ngIf="createSuccess">
+                        <span class="float-right" (click)="createSuccess = false"><i class="far fa-times-circle"></i></span>
+                        <p>Create section success!</p>
+                    </div> 
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!sectionForm.valid || (sectionForm.null || sectionForm.undefined)"><i class="fas fa-save"></i> Create Section</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container-fluid text-center">
+    <p class="h3">Sections</p>    
+    <div class="row" *ngIf="sections else loading">
+        <div class="col-md-4 col-sm-6 col-xs-12 mb-3" *ngFor="let section of sections">
+            <a [href]="'/user/' +section.key">
+                <div class="card shadow text-dark">
+                    <div class="card-header">
+                        <div class="card-title">{{section.key}}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title text-capitalize">Section {{section.sectionName}}</div>                    
+                        <div>
+                            <div>
+                                <p class="card-text">Students: {{ section.studentCount }}</p>
+                            </div>
+                        </div>
+                        <ng-template #noStudents>
+                            <p class="card-text">No Students</p>
+                        </ng-template>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <ng-template #loading>
+        <div class="alert alert-primary text-center loading" role="alert">
+            <span>
+                <i class="fas fa-spinner"></i>
+                Loading                
+            </span>
+        </div>
+    </ng-template>
+</div>

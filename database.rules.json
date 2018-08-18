@@ -1,0 +1,16 @@
+{
+  "rules": {
+    ".read": "true",
+    ".write": "true",
+    "sections": {
+      ".indexOn": [
+        "sectionHolder"
+      ]
+    },
+    "students": {
+      ".indexOn": [
+        "section"
+      ]
+    }
+  }
+}

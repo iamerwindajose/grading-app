@@ -1,0 +1,117 @@
+<a class="btn text-success" href="/user"><i class="fas fa-chevron-circle-left"></i> Go back</a>
+<div class="container mb-5">
+  <div class="card">
+    <div class="card-header bg-primary text-light">
+      <h5 class="card-title">Student Form</h5>
+    </div>
+    <div class="card-body form-card shadow-nohover">
+      <form #studentForm="ngForm" (ngSubmit)="addStudent(studentForm)">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12 mb-1">
+                <input type="hidden" name="key" #key="ngModel" [(ngModel)]="studService.student.key">
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-12 mb-2">
+                <label for="firstname">Firstname</label>
+                <input class="form-control" type="text" name="firstname" #firstname="ngModel" [(ngModel)]="studService.student.firstname" minlength="3" required>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-12 mb-2">
+                  <label for="middlename">Middlename</label>
+                  <input class="form-control" type="text" name="middlename" #middlename="ngModel" [(ngModel)]="studService.student.middlename" minlength="3" required>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-12 mb-2">
+                  <label for="lastname">Lastname</label>
+                  <input class="form-control" type="text" name="lastname" #lastname="ngModel" [(ngModel)]="studService.student.lastname" minlength="2" required>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12 mb-2">
+                  <label for="age">Age</label>
+                  <input class="form-control" type="number" name="age" #age="ngModel" [(ngModel)]="studService.student.age" minlength="2" required>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12 mb-2">
+                  <label for="gender">Gender</label>
+                  <select class="custom-select" name="gender" #gender="ngModel" [(ngModel)]="studService.student.gender">
+                    <option disabled>Select a gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>                  
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-12 mb-3">
+                <label for="prelim">Prelim Grade</label>
+                <input class="form-control" type="number" name="prelim" #prelim="ngModel" [(ngModel)]="studService.student.prelim" minlength="3" required>                
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-12 mb-3">
+                  <label for="midterm">Midterm Grade</label>
+                  <input class="form-control" type="number" name="midterm" #midterm="ngModel" [(ngModel)]="studService.student.midterm" minlength="3" required>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-12 mb-3">
+                  <label for="final">Final Grade</label>
+                  <input class="form-control" type="number" name="final" #final="ngModel" [(ngModel)]="studService.student.final" minlength="3" required>
+              </div>
+
+              <div class="col-md-6 col-sm-6 col-xs-12 mb-2">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!studentForm.valid">
+                    <i class="fas fa-save"></i> Save
+                </button>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                  <button type="reset" (click)="studentForm.reset()" class="btn btn-primary btn-block">
+                      <i class="fas fa-undo"></i> Reset
+                  </button>
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h5 class="text-center">List of Students</h5>
+  <div class="card shadow-nohover">
+  <div class="card-header bg-dark text-light">
+      <div *ngFor="let item of sec">
+        <p class="card-title h5 text-capitalize">
+          Section: {{item.sectionName}}
+        </p>
+      </div>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-striped text-center">
+      <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Prelim</th>
+            <th scope="col">Midterm</th>
+            <th scope="col">Final</th>
+            <th scope="col">Average</th>
+            <th scope="col">Actions</th>
+          </tr>
+      </thead>
+      <tbody class="text-capitalize">
+        <tr *ngFor="let student of studentsArray">
+          <td>
+            <span>{{ student.firstname }}</span>
+            <span>{{ student.middlename }}</span>
+            <span>{{ student.lastname }}</span>
+          </td>
+          <td>{{ student.age }}</td>
+          <td>{{ student.gender }}</td>
+          <td>{{ student.prelim }}</td>
+          <td>{{ student.midterm }}</td>
+          <td>{{ student.final }}</td>
+          <td>{{ mathRound(student.average) }}</td>          
+          <td>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6"><span class="text-info" (click)="edit(student)"><i class="fas fa-edit"></i></span></div>
+                <div class="col-md-6 col-sm-6 col-xs-6"><span class="text-danger" (click)="deleteStudent(student.key)"><i class="fas fa-trash-alt"></i></span></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</div>

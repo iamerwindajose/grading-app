@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+$primary: #95A5A6;
+$secondary: #7F8C8D;
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+body{
+    font-family: 'Raleway', sans-serif;
+}
+input.ng-invalid.ng-dirty{
+    border: 1px solid $danger;
+}
+
+button:hover, a.btn:hover{
+    cursor: pointer;
+}
+
+button:disabled{
+    cursor: not-allowed;
+}

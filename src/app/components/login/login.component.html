@@ -1,0 +1,21 @@
+<div class="container-fluid d-flex">
+  <div class="container text-center align-self-center">
+    <h1 class="display-1">Welcome guest!</h1>
+    <!-- <ng-template #loggedIn>
+        <h3 class="text-success">You are already logged in!</h3>
+        <p class="lead"><a routerLink="/user">Click here to navigate to the homepage.</a></p>
+    </ng-template> -->
+    <p class="lead">Signin to continue.</p>
+    <div>
+        <button class="btn btn-light text-center" (click)="signin()"> 
+        Signin
+        with 
+        <span>
+          <img src="../../../assets/GoogleIcon.png" alt="Google Icon">
+        </span>
+      </button>
+      <span class="text-danger" *ngIf="displayError">{{ displayError }}</span>
+    </div>
+    
+  </div>
+</div>
